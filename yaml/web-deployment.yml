@@ -6,7 +6,7 @@ spec:
   replicas: 3
   selector:
     matchLabels: 
-      app: auto-dof
+      app: auto-dof-web
   minReadySeconds: 10
   strategy:
     type: RollingUpdate
@@ -16,7 +16,7 @@ spec:
   template:
     metadata:
       labels:
-        app: auto-dof
+        app: auto-dof-web
     spec:
       containers:
       - name: auto-dof-web-container
@@ -29,7 +29,7 @@ kind: Service
 metadata:
   name: auto-dof-web-svc
   labels:
-    app: auto-dof
+    app: auto-dof-web
 spec:
   type: NodePort
   ports:
@@ -37,7 +37,7 @@ spec:
     nodePort: 31011
     protocol: TCP
   selector:
-    app: auto-dof
+    app: auto-dof-web
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -47,7 +47,7 @@ spec:
   replicas: 3
   selector:
     matchLabels: 
-      app: auto-dof
+      app: auto-dof-php
   minReadySeconds: 10
   strategy:
     type: RollingUpdate
@@ -57,7 +57,7 @@ spec:
   template:
     metadata:
       labels:
-        app: auto-dof
+        app: auto-dof-php
     spec:
       containers:
       - name: auto-dof-php-container
@@ -70,7 +70,7 @@ kind: Service
 metadata:
   name: auto-dof-php-svc
   labels:
-    app: auto-dof
+    app: auto-dof-php
 spec:
   type: NodePort
   ports:
@@ -78,4 +78,4 @@ spec:
     nodePort: 31012
     protocol: TCP
   selector:
-    app: auto-dof
+    app: auto-dof-php
