@@ -34,7 +34,7 @@ spec:
   type: NodePort
   ports:
   - port: 80
-    nodePort: 5350
+    nodePort: 31011
     protocol: TCP
   selector:
     app: auto-dof
@@ -75,7 +75,7 @@ spec:
   type: NodePort
   ports:
   - port: 9000
-    nodePort: 9000
+    nodePort: 31012
     protocol: TCP
   selector:
     app: auto-dof
