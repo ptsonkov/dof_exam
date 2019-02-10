@@ -111,5 +111,10 @@ metadata:
   labels:
     app: auto-dof
 spec:
+  type: NodePort
+  ports:
+  - port: 6379
+    nodePort: 31013
+    protocol: TCP
   selector:
     app: auto-dof

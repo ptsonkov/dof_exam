@@ -7,8 +7,8 @@
 	$redishost = 'auto-dof-db-svc';
 	$client = new Predis\Client([
 		'scheme' => 'tcp',
-      'host'   => $redishost,
-      'port'   => 6379,
+        'host'   => $redishost,
+        'port'   => 31013,
 	]);
 
 	$tools = array
