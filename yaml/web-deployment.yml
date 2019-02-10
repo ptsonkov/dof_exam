@@ -44,7 +44,7 @@ kind: Deployment
 metadata:
   name: dof-exam-php
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels: 
       app: auto-dof
@@ -77,5 +77,39 @@ spec:
   - port: 9000
     nodePort: 31012
     protocol: TCP
+  selector:
+    app: auto-dof
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dof-exam-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels: 
+      app: auto-dof
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: auto-dof
+    spec:
+      containers:
+      - name: auto-dof-db-container
+        image: redis:latest 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auto-dof-db-svc
+  labels:
+    app: auto-dof
+spec:
   selector:
     app: auto-dof

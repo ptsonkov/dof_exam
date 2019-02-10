@@ -4,7 +4,7 @@
 	Predis\Autoloader::register();
 
 	$phphost = gethostname();
-	$redishost = 'redis-host';
+	$redishost = 'auto-dof-db-svc';
 	$client = new Predis\Client([
 		'scheme' => 'tcp',
       'host'   => $redishost,
