@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dof-exam-nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels: 
+      app: auto-dof
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: auto-dof
+    spec:
+      containers:
+      - name: auto-dof-web-container
+        image: ptsonkov/dof-exam-nginx:latest
+        ports:
+        - containerPort: 80 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auto-dof-web-svc
+  labels:
+    app: auto-dof
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    nodePort: 5350
+    protocol: TCP
+  selector:
+    app: auto-dof
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dof-exam-php
+spec:
+  replicas: 3
+  selector:
+    matchLabels: 
+      app: auto-dof
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: auto-dof
+    spec:
+      containers:
+      - name: auto-dof-php-container
+        image: ptsonkov/dof-exam-php:latest
+        ports:
+        - containerPort: 9000 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auto-dof-php-svc
+  labels:
+    app: auto-dof
+spec:
+  type: NodePort
+  ports:
+  - port: 9000
+    nodePort: 9000
+    protocol: TCP
+  selector:
+    app: auto-dof
